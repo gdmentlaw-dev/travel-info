@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>여행 노트 — 도시·시기별 여행 가이드</title>
+  <meta name="description" content="도시와 여행 시기를 입력하면 그 달에 좋은 관광지·액티비티·휴양지를 사진과 함께 소개하고, 동선을 고려한 일정을 지도와 함께 보여줍니다." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top">여행<span>노트</span></a>
+    <nav class="topnav">
+      <a href="#season">시즌</a>
+      <a href="#picks">추천</a>
+      <a href="#plan">일정·지도</a>
+    </nav>
+  </header>
+
+  <!-- HERO + 검색 -->
+  <section class="hero" id="top">
+    <div class="hero-media"><img id="heroImg" alt="" /></div>
+    <a class="hero-credit" id="heroCredit" target="_blank" rel="noopener" title="사진 원본·라이선스 보기"></a>
+    <div class="hero-shade"></div>
+    <div class="hero-inner">
+      <p class="hero-eyebrow" id="heroEyebrow">TRAVEL NOTE</p>
+      <h1 class="hero-title" id="heroTitle">어디로, 언제 떠나세요?</h1>
+      <p class="hero-sub" id="heroSub">도시와 달, 여행 일수만 정하면 그 시기에 가장 좋은 곳과 동선을 짜 드려요.</p>
+
+      <form class="search" id="searchForm" autocomplete="off">
+        <label class="field field-city">
+          <span>도시</span>
+          <select id="citySelect"></select>
+        </label>
+        <label class="field field-month">
+          <span>시기</span>
+          <select id="monthSelect"></select>
+        </label>
+        <fieldset class="field field-days">
+          <legend>일정</legend>
+          <div class="seg" id="daysSeg"></div>
+        </fieldset>
+        <button class="btn-go" type="submit">일정 만들기</button>
+      </form>
+      <p class="search-msg" id="searchMsg" role="status"></p>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"><span></span></div>
+  </section>
+
+  <main id="result">
+    <!-- 시즌 정보 -->
+    <section class="season" id="season">
+      <div class="wrap">
+        <p class="kicker" id="seasonKicker"></p>
+        <h2 class="sec-title reveal" id="seasonTitle"></h2>
+        <div class="season-grid">
+          <div class="climate reveal" id="climate"></div>
+          <div class="highlights" id="highlights"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 사진 위주 추천 -->
+    <section class="picks" id="picks">
+      <div class="wrap">
+        <p class="kicker">BEST OF THE MONTH</p>
+        <h2 class="sec-title reveal" id="picksTitle"></h2>
+        <div class="chips" id="chips" role="tablist"></div>
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <!-- 타임라인 + 지도 -->
+    <section class="plan" id="plan">
+      <div class="wrap">
+        <p class="kicker">ROUTE &amp; TIMELINE</p>
+        <h2 class="sec-title reveal" id="planTitle"></h2>
+        <p class="plan-note" id="planNote"></p>
+      </div>
+      <div class="plan-grid">
+        <div class="timeline" id="timeline"></div>
+        <aside class="map-col">
+          <div class="map-box" data-lenis-prevent>
+            <div id="map"></div>
+            <div class="map-days" id="mapDays"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>사진: Wikimedia Commons 기여자 — 각 사진 위에 작가와 라이선스(CC BY / CC BY-SA 등)를 표기했고, 누르면 원본 페이지로 이동합니다. 사진은 수정 없이 사용했습니다. · 지도: © OpenStreetMap contributors</p>
+      <p>기후는 각 도시 기상 관측소의 평년값(1991–2020) 기준이며, 운영 시간·요금·투어 운항은 방문 전 공식 정보를 확인하세요.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/credits.js"></script>
+  <script src="js/cities/kagoshima.js"></script>
+  <script src="js/cities/takamatsu.js"></script>
+  <script src="js/cities/osaka.js"></script>
+  <script src="js/cities/tokyo.js"></script>
+  <script src="js/cities/hakodate.js"></script>
+  <script src="js/cities/sapporo.js"></script>
+  <script src="js/planner.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
