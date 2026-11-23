@@ -290,7 +290,7 @@
         if (el.classList.contains('spot')) {
           const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 82%' } });
           tl.from($('.dot', el), { scale: 0, duration: .5, ease: 'back.out(2.5)' })
-            .from($('.scard', el), { x: 60, opacity: 0, duration: .9, ease: 'power3.out' }, '<.05')
+            .fromTo($('.scard', el), { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: .9, ease: 'power3.out' }, '<.05')
             .from($('.ph', el), { clipPath: 'inset(0 100% 0 0)', duration: 1.1, ease: 'power4.inOut' }, '<')
             .from($$('.body > *', el), { y: 16, opacity: 0, duration: .6, stagger: .06, ease: 'power2.out' }, '-=.6');
           gsap.fromTo($('.ph img', el), { yPercent: -10 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
@@ -302,7 +302,7 @@
             },
           });
         } else {
-          gsap.from(el, { x: 30, opacity: 0, duration: .6, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+          gsap.fromTo(el, { x: 30, opacity: 0 }, { x: 0, opacity: 1, duration: .6, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
         }
       });
     });
